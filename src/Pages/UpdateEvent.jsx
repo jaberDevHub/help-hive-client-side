@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useLoaderData } from "react-router-dom";
-
+import { useNavigate, useLoaderData } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,13 +7,10 @@ import { toast } from "react-toastify";
 import useFetch from "../hooks/useFetch";
 
 const UpdateEvent = () => {
-  const { id } = useParams()
-  const event = useLoaderData();
 
-  if (!event) {
-    return <div>Loading...</div>; // Or any other loading indicator
-  }
-  const fetch = useFetch();
+
+  const event = useLoaderData();
+  const api = useFetch(); // renamed
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -29,28 +25,34 @@ const UpdateEvent = () => {
   useEffect(() => {
     if (event) {
       setFormData({
-        ...event,
-        eventDate: new Date(event.eventDate),
+        title: event.title || "",
+        description: event.description || "",
+        eventType: event.eventType || "Cleanup",
+        thumbnail: event.thumbnail || "",
+        location: event.location || "",
+        eventDate: event.eventDate ? new Date(event.eventDate) : new Date(),
       });
     }
   }, [event]);
-
-  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const { _id, ...updatePayload } = formData;
-      await fetch.patch(`/api/events/${_id}`, updatePayload);
+      // safer to use event._id
+      await api.patch(`/api/events/${event._id}`, updatePayload);
       toast.success("Event updated successfully");
       navigate("/manage-events");
     } catch (err) {
       console.error(err);
-      alert("Failed to update event");
+      toast.error("Failed to update event");
     }
   };
 
+  if (!event) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="min-h-screen py-10 px-4 bg-base-100">
@@ -104,7 +106,9 @@ const UpdateEvent = () => {
             minDate={new Date()}
             required
           />
-          <button type="submit" className="btn btn-primary w-full">Update Event</button>
+          <button type="submit" className="btn btn-primary w-full">
+            Update Event
+          </button>
         </form>
       </div>
     </section>
