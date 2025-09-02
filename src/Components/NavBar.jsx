@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import Logo from '../assets/images/logo.png';
 import LogoTow from '../assets/images/footer-logo.png';
 import { AuthContext } from "../Provider/AuthProvider";

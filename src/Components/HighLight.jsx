@@ -4,9 +4,9 @@ import EventCard from './EventCard';
 
 
 const HighLight = () => {
-      const [filterType, setFilterType] = useState("");
-        const [searchTerm, setSearchTerm] = useState("");
-    const { events, isLoading } = useUpcomingEvents(filterType,searchTerm)
+      const [filterType, ] = useState("");
+        const [searchTerm, ] = useState("");
+    const { events,  } = useUpcomingEvents(filterType,searchTerm)
     return (
         <div className='py-1 '>
             <h2 className="text-3xl font-bold text-center my-10">🌟 Highlighted Events</h2>
