@@ -9,7 +9,11 @@ import useFetch from "../hooks/useFetch";
 
 const UpdateEvent = () => {
   const { id } = useParams()
-  const event = useLoaderData()
+  const event = useLoaderData();
+
+  if (!event) {
+    return <div>Loading...</div>; // Or any other loading indicator
+  }
   const fetch = useFetch();
   const navigate = useNavigate();
 
@@ -31,20 +35,7 @@ const UpdateEvent = () => {
     }
   }, [event]);
 
-  console.log(formData);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { _id, ...updatePayload } = formData;
-      await fetch.patch(`/api/event/${_id}`, updatePayload);
-      toast.success("Event updated successfully");
-      navigate("/manage-events");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update event");
-    }
-  };
+ 
 
 
   return (

@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 .env
 node_modules/
-*.txt
+
 dist
 dist-ssr
 *.local
@@ -23,3 +23,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+help-hive-server-side/
+
+*.txt

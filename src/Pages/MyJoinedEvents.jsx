@@ -1,60 +1,3 @@
-// import { FaLocationArrow } from "react-icons/fa";
-// import Loading from "../Components/Loading";
-// import useMyJoinEvent from "../hooks/useMyJoinEvent";
-// import { Link } from "react-router-dom";
-
-// const MyJoinedEvents = () => {
-//   const { events, isLoading } = useMyJoinEvent();
-
-//   if (isLoading) return <Loading />;
-
-//   return (
-//     <section className="min-h-screen bg-base-100 py-10 px-4">
-//       <div className="max-w-6xl mx-auto">
-//         <h2 className="text-3xl font-bold text-center mb-8 text-primary">My Joined Events</h2>
-//         {events.length === 0 ? (
-//           <p className="text-center text-3xl text-red-400">You haven’t join any events yet.</p>
-//         ) : (
-//           <div className="overflow-x-auto">
-//             <table className="table w-full table-zebra">
-//               <thead>
-//                 <tr>
-//                   <th>Thumbnail</th>
-//                   <th>Title</th>
-//                   <th>Type</th>
-//                   <th>Date</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {events.map((joinedEvent) => (
-//                   <tr key={joinedEvent._id}>
-//                     <td>
-//                       <img
-//                         src={joinedEvent.event.thumbnail}
-//                         alt={joinedEvent.event.title}
-//                         className="w-16 h-16 object-cover rounded"
-//                       />
-//                     </td>
-//                     <td>{joinedEvent.event.title}</td>
-//                     <td>{joinedEvent.event.eventType}</td>
-//                     <td>{new Date(joinedEvent.event.eventDate).toLocaleString()}</td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         )}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default MyJoinedEvents;
-
-
-
-
-
 import Loading from "../Components/Loading";
 import useMyJoinEvent from "../hooks/useMyJoinEvent";
 import { Link } from "react-router-dom";
@@ -82,7 +25,12 @@ const MyJoinedEvents = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {events.map((joinedEvent) => (
+            {[...events]
+              .sort(
+                (a, b) =>
+                  new Date(a.event.eventDate) - new Date(b.event.eventDate)
+              )
+              .map((joinedEvent) => (
               <div
                 key={joinedEvent._id}
                 className="card card-compact bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 rounded-lg overflow-hidden"
@@ -95,7 +43,7 @@ const MyJoinedEvents = () => {
                   />
                 </figure>
                 <div className="card-body p-6">
-                  <h3 className="card-title text-2xl font-bold text-white mb-2 line-clamp-2 leading-tight">
+                  <h3 className="card-title text-2xl font-bold  mb-2 line-clamp-2 leading-tight">
                     {joinedEvent.event.title}
                   </h3>
                   <div className="flex flex-wrap items-center gap-2 text-lg text-gray-600 mb-3">

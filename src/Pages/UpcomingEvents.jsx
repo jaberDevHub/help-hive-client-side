@@ -20,7 +20,7 @@ const UpcomingEvents = () => {
     const { events, isLoading, error } = useUpcomingEvents(filterType, searchTerm);
 
     // Sort events by date
-    const sortedEvents = [...events].sort((a, b) => {
+    const sortedEvents = [...events].filter(event => new Date(event.eventDate) > new Date()).sort((a, b) => {
         const dateA = new Date(a.eventDate);
         const dateB = new Date(b.eventDate);
         return sortOrder === "desc" ? dateB - dateA : dateA - dateB;

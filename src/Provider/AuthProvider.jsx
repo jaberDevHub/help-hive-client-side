@@ -11,7 +11,7 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { auth } from '../firebase.init';
-import axios from 'axios';
+import api from '../api/axios';
 
 export const AuthContext = createContext();
 const googleProvider = new GoogleAuthProvider();
@@ -29,7 +29,9 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth);
+        return api.post('/api/auth/logout').then(() => {
+            return signOut(auth);
+        });
     };
 
 
@@ -52,6 +54,12 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
+            if (currentUser) {
+                api.post('/api/auth/token', { email: currentUser.email })
+                    .then(res => {
+                        // No need to handle token in localStorage, httpOnly cookie is used
+                    })
+            } 
             console.log(currentUser);
             setLoading(false);
         });

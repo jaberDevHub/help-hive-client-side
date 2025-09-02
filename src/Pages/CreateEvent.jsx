@@ -209,6 +209,11 @@ const CreateEvent = () => {
     const thumbnail = form.thumbnail.value;
     const location = form.location.value;
 
+    const urlRegex = /^(ftp|http|https):\/\/[^ \"]+$/;
+    if (!urlRegex.test(thumbnail)) {
+      return toast.error("Please enter a valid thumbnail URL.");
+    }
+
     if (!eventDate || eventDate < new Date()) {
       return toast.error("Please select a valid future date.");
     }

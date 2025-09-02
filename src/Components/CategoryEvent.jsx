@@ -49,7 +49,7 @@ const CategoryEvent = () => {
       </div>
 
       {/* Events Grid */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6">
+      <div className="grid lg:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6 ml-[200px] mr-[200px]">
         {isLoading ? (
           <p className="text-center col-span-full">Loading events...</p>
         ) : events.length === 0 ? (
