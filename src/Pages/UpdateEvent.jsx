@@ -35,7 +35,21 @@ const UpdateEvent = () => {
     }
   }, [event]);
 
- 
+  console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { _id, ...updatePayload } = formData;
+      await fetch.patch(`/api/events/${_id}`, updatePayload);
+      toast.success("Event updated successfully");
+      navigate("/manage-events");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update event");
+    }
+  };
 
 
   return (
