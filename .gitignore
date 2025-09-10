@@ -26,5 +26,6 @@ dist-ssr
 
 .vercel
 help-hive-server-side/
+.qodo/
 
 *.txt
