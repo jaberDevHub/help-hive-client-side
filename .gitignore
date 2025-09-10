@@ -29,3 +29,4 @@ help-hive-server-side/
 .qodo/
 
 *.txt
+.js
