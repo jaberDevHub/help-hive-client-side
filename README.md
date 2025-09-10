@@ -6,7 +6,7 @@ Help Hive is a web application that allows users to create, discover, and join v
 
 ## Live URL
 
-[https://your-live-url.com](https://your-live-url.com)
+[https://your-live-url.com](https://help-hive-client-side.vercel.app/)
 
 ## Key Features
 
